@@ -12,7 +12,10 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 async function start() {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(
     "https://www.etsy.com/in-en/seller-handbook/category/site-updates"
