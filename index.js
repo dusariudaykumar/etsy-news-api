@@ -1,4 +1,3 @@
-const axios = require("axios");
 const puppeteer = require("puppeteer");
 const express = require("express");
 
