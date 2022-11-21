@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const app = express();
 app.use(
   cors({
     origin: "*",
@@ -62,8 +63,6 @@ async function start() {
   await browser.close();
   return articlesArray;
 }
-
-const app = express();
 
 app.get("/", (req, res) => {
   res.send("hello");
