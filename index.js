@@ -1,6 +1,15 @@
 const puppeteer = require("puppeteer");
+require("dotenv").config();
 const express = require("express");
-
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 async function start() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -56,6 +65,10 @@ async function start() {
 
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
 app.get("/etsy/site-updates", async (req, res) => {
   try {
     const data = await start();
@@ -68,7 +81,7 @@ app.get("/etsy/site-updates", async (req, res) => {
     });
   }
 });
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
